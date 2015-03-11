@@ -13,7 +13,15 @@ def read_file(filename):
     return df
 
 def make_plots(df):
-    df.plot(y=[0,1], title='Accelerometers')
+    ax = df.plot(y=[0,1], title='Accelerometer Overtests')
+    fig = ax.get_figure()
+    plt.xlabel('x-label')
+    plt.ylabel('y-label')
+
+    fig.suptitle('NBN co 1-A', fontsize=20)
+    plt.xlabel('Hz', fontsize=18)
+    plt.ylabel('$g^2/Hz$', fontsize=16)
+    fig.savefig('test.png')
     plt.show()
 
 
