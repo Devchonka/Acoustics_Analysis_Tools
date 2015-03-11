@@ -26,7 +26,7 @@ on location of accel on spacecraft.
 from scipy.integrate import simps # to calc Grms area under curve: numerical method to integrate area
 
 from pandas import read_csv
-import matplotlib.pyplot as plt
+import plotting
 
 
 def read_file(filename):
@@ -51,7 +51,7 @@ def get_Grms(list, dx):
     """
     Function to numerically compute area under ASD curve (Grms value) using composite Simpson's rule.
     :param list: list of values of ASD vector
-    :return:
+    :return: Grms values of the whole curve, and of the curve up until the max peak
     """
     peak_index = list.index(max(list))
     #peak_index = list.idxmax()
@@ -59,26 +59,12 @@ def get_Grms(list, dx):
     Grms_peak = simps(list[0:peak_index], dx=dx)
     return Grms_total, Grms_peak
 
-def make_plots(df):
-    ax = df.plot(y=[0,1], title='Accelerometer Overtests', loglog=True)
-    plt.xlim([10, 2**12])
-    fig = ax.get_figure()
-
-    fig.suptitle('NBN co 1-A', fontsize=20)
-    plt.xlabel('Hz', fontsize=18)
-    plt.ylabel('Acceleration Spectral Density (ASD) ($g^2/Hz$)', fontsize=16)
-    fig.savefig('test.png')
-    plt.show()
-    plt.close('all')  # first close all open plots
-
-
-
 def main():
     # Read file and store data in "data" object
     fname = 'Acoustics_Overtest_Data.txt'
     data_frame = read_file(fname)  # create data object that will keep all variables from file, raw and processed
     calc_stats(data_frame)
-    make_plots(data_frame)
+    plotting.make_plots(data_frame)
 
 if __name__ == '__main__':
     main()
