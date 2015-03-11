@@ -6,6 +6,15 @@ spectral density (ASD). The root mean square acceleration (Grms) value expresses
 overall energy of a particular random vibration event. It is calculated as the square root
 of the area under the ASD curve in the frequency domain.
 
+If the accelerometer time history is a stationary Gaussian random time history,
+the rms acceleration (also called the 1 sigma acceleration) would be related to the
+statistical properties of the acceleration time history.
+
+68.3% of the time, the acceleration time history would have peaks that would not exceed the +/- 1 sigma accelerations.
+95.4% of the time, the acceleration time history would have peaks that would not exceed the +/- 2 sigma accelerations.
+99.7% of the time, the acceleration time history would have peaks that would not exceed the +/- 3 sigma accelerations.
+
+
 This ASD analysis is useful for structural design and analysis purposes.
 
 Inputs: g^2/freq vs freq data from accelerometers.
@@ -33,9 +42,10 @@ def calc_stats(df):
     # The y values.  A numpy array is used here,
     # but a python list could also be used.
     dx = df.index[1]-df.index[0]
-    Grms = get_Grms(list(df.ix[:,0]), dx)
-    print("area =", Grms)
+    Grms_total, Grms_peak = get_Grms(df.ix[:, 0].tolist(), dx)
 
+    print('Grms_total = ', Grms_total)
+    print ('Grms_peak = ', Grms_peak )
 
 def get_Grms(list, dx):
     """
@@ -43,8 +53,11 @@ def get_Grms(list, dx):
     :param list: list of values of ASD vector
     :return:
     """
-    Grms = simps(list, dx=dx)
-    return Grms
+    peak_index = list.index(max(list))
+    #peak_index = list.idxmax()
+    Grms_total = simps(list, dx=dx)
+    Grms_peak = simps(list[0:peak_index], dx=dx)
+    return Grms_total, Grms_peak
 
 def make_plots(df):
     ax = df.plot(y=[0,1], title='Accelerometer Overtests', loglog=True)
@@ -55,7 +68,7 @@ def make_plots(df):
     plt.xlabel('Hz', fontsize=18)
     plt.ylabel('Acceleration Spectral Density (ASD) ($g^2/Hz$)', fontsize=16)
     fig.savefig('test.png')
-    # plt.show()
+    plt.show()
     plt.close('all')  # first close all open plots
 
 
