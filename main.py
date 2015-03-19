@@ -23,10 +23,11 @@ on location of accel on spacecraft.
 
 """
 
-from scipy.integrate import simps # to calc Grms area under curve: numerical method to integrate area
+from scipy.integrate import simps  # to calc Grms area under curve: numerical method to integrate area
 
 from pandas import read_csv
 import plotting
+import qualification
 
 
 def read_file(filename):
@@ -38,14 +39,16 @@ def read_file(filename):
     df = read_csv(filename, sep='\t', lineterminator='\n', header=[0, 1], index_col=0)
     return df
 
+
 def calc_stats(df):
     # The y values.  A numpy array is used here,
     # but a python list could also be used.
-    dx = df.index[1]-df.index[0]
+    dx = df.index[1] - df.index[0]
     Grms_total, Grms_peak = get_Grms(df.ix[:, 0].tolist(), dx)
 
     print('Grms_total = ', Grms_total)
-    print ('Grms_peak = ', Grms_peak )
+    print('Grms_peak = ', Grms_peak)
+
 
 def get_Grms(list, dx):
     """
@@ -54,10 +57,11 @@ def get_Grms(list, dx):
     :return: Grms values of the whole curve, and of the curve up until the max peak
     """
     peak_index = list.index(max(list))
-    #peak_index = list.idxmax()
+    # peak_index = list.idxmax()
     Grms_total = simps(list, dx=dx)
     Grms_peak = simps(list[0:peak_index], dx=dx)
     return Grms_total, Grms_peak
+
 
 def main():
     # Read file and store data in "data" object
@@ -65,6 +69,8 @@ def main():
     data_frame = read_file(fname)  # create data object that will keep all variables from file, raw and processed
     calc_stats(data_frame)
     plotting.make_plots(data_frame)
+    qualification.get_qual()
+
 
 if __name__ == '__main__':
     main()
