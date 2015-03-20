@@ -105,8 +105,8 @@ def get_qual(fname):
     Breakpoints denoted b0,b1...slopes or flat values denoted s0,s1,s2
     """
     qual_df = get_qual_specs(fname)
-    keys = ['fig1', 'fig2', 'fig3', 'fig4', 'fig5', 'fig6', 'fig7', 'fig8_IP', 'fig8_OP',
-            'fig9', 'fig10_IP', 'fig10_OP', 'fig11_IP', 'fig11_OP', 'fig12_IP', 'fig12_OP']
+    keys = ['fig1', 'fig2', 'fig3', 'fig4', 'fig5', 'fig6', 'fig7_IP', 'fig7_OP',
+            'fig8', 'fig9_IP', 'fig9_OP', 'fig10', 'fig11_IP', 'fig11_OP', 'fig12_IP', 'fig12_OP']
     dict_specs = {}
     dx = 4.0  # from data collected
     freq = arange(20.0, 2504.0, dx)
