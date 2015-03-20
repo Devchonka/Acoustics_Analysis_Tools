@@ -45,7 +45,6 @@ def calc_stats(df):
     Grms_total = get_Grms(df.ix[:, 0].tolist(), dx)
     print('Grms_total = ', Grms_total)
 
-
 def get_Grms(list, dx):
     """
     Function to numerically compute area under ASD curve (Grms value) using composite Simpson's rule.
