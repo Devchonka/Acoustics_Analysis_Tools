@@ -46,7 +46,6 @@ def calc_stats(df):
     print('Grms_total = ', Grms_total)
 
 
-
 def get_Grms(list, dx):
     """
     Function to numerically compute area under ASD curve (Grms value) using composite Simpson's rule.
@@ -63,13 +62,12 @@ def main():
     data_df = read_data_file(fname_data)  # create data object that will keep all variables from file, raw and processed
     spec_dict = qualification.get_qual(fname_randomV_specs)
 
-
-
     # get dictionary of design loads of {figure# : design_load}
     dict_loads = qualification.get_design_loads(fname_design_loads)
 
     calc_stats(data_df)
     plotting.make_plots(data_df, spec_dict)
+
 
 if __name__ == '__main__':
     main()

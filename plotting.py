@@ -6,8 +6,9 @@ Plotting module for acoustics analysis
 import matplotlib.pyplot as plt
 
 
-def make_plots(data_df, spec_df):
+def make_plots(data_df, spec_dict):
     ax = data_df.plot(y=[0, 1], title='Accelerometer Overtests', loglog=True)
+    plt.plot(data_df.index, spec_dict['fig1'])
     plt.xlim([10, 2 ** 12])
     fig = ax.get_figure()
 
@@ -15,5 +16,5 @@ def make_plots(data_df, spec_df):
     plt.xlabel('Hz', fontsize=18)
     plt.ylabel('Acceleration Spectral Density (ASD) ($g^2/Hz$)', fontsize=16)
 
-    # plt.show()
+    plt.show()
     # plt.close('all')  # first close all open plots
