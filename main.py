@@ -38,19 +38,24 @@ def read_data_file(filename):
     return df
 
 
-def calc_stats(df):
+def calc_stats(data_df, spec_dict):
     # The y values.  A numpy array is used here,
     # but a python list could also be used.
-    dx = df.index[1] - df.index[0]
-    Grms_total = get_Grms(df.ix[:, 0].tolist(), dx)
-    print('Grms_total = ', Grms_total)
+    dx = data_df.index[1] - data_df.index[0]
+    Grms_curve_total = get_Grms(data_df.ix[:, 0].tolist(), dx)
+    Grms_qual_total = get_Grms()
 
-def get_Grms(list, dx):
+
+
+
+
+
+def get_Grms(given_list, dx):
     """
     Function to numerically compute area under ASD curve (Grms value) using composite Simpson's rule.
     """
-    Grms_total = simps(list, dx=dx)
-    return Grms_total
+    Grms = simps(given_list, dx=dx)
+    return Grms
 
 
 def main():
@@ -62,10 +67,10 @@ def main():
     spec_dict = qualification.get_qual(fname_randomV_specs)
 
     # get dictionary of design loads of {figure# : design_load}
-    dict_loads = qualification.get_design_loads(fname_design_loads)
+    loads_dict = qualification.get_design_loads(fname_design_loads)
 
-    calc_stats(data_df)
-    plotting.make_plots(data_df, spec_dict)
+    calc_stats(data_df, spec_dict)
+    # plotting.make_plots(data_df, spec_dict)
 
 
 if __name__ == '__main__':
