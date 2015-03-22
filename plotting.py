@@ -236,4 +236,4 @@ def make_plots(data_df, spec_dict):
 
     plt.savefig('fig12.pdf', bbox_inches='tight')
 
-    #plt.show()
+    # plt.show()

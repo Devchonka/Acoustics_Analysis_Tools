@@ -24,11 +24,11 @@ def get_qual_specs(fname):
 
 # def get_qual_helper(item):
 # """
-#     Function reads qual txt file and pulls out a pandas df of specs with fig# as index
-#     """
+# Function reads qual txt file and pulls out a pandas df of specs with fig# as index
+# """
 #
 #
-#     # switch case for item
+# # switch case for item
 #     breakpoints = [50, 600]
 #     slopes = [6.0, 0.08, -4.5]
 #     return breakpoints, slopes
@@ -43,46 +43,44 @@ def build_continuous(breakpoints, slopes, freq):
     if len(breakpoints) == 2:
 
         # get slope in g2/ Hz
-        value = log10(breakpoints[0]/freq[0]) / log10(2)
-        y_point_first = slopes[1] / (10**(slopes[0]*value/10))
+        value = log10(breakpoints[0] / freq[0]) / log10(2)
+        y_point_first = slopes[1] / (10 ** (slopes[0] * value / 10))
 
         value = log10(freq_last / breakpoints[1]) / log10(2)
-        y_point_last = slopes[1] * (10**(slopes[2]*value/10))
+        y_point_last = slopes[1] * (10 ** (slopes[2] * value / 10))
 
-        k_up = log10(slopes[1]/y_point_first)/log10(breakpoints[0]/freq[0])
-        a_up = slopes[1] / (breakpoints[0]**k_up)
+        k_up = log10(slopes[1] / y_point_first) / log10(breakpoints[0] / freq[0])
+        a_up = slopes[1] / (breakpoints[0] ** k_up)
 
-        k_down = log10(y_point_last / slopes[1])/log10(freq_last/breakpoints[1])
-        a_down = y_point_last / (freq_last**k_down)
+        k_down = log10(y_point_last / slopes[1]) / log10(freq_last / breakpoints[1])
+        a_down = y_point_last / (freq_last ** k_down)
 
         conditions = [freq < breakpoints[0],
                       (freq >= breakpoints[0]) & (freq < breakpoints[1]),
                       freq >= breakpoints[1]]
 
-        functions = [lambda freq: a_up * freq**k_up,
+        functions = [lambda freq: a_up * freq ** k_up,
                      lambda freq: slopes[1],
-                     lambda freq: a_down * freq**k_down]
+                     lambda freq: a_down * freq ** k_down]
     elif len(breakpoints) == 4:
         # get slope in g2/ Hz
-        value = log10(breakpoints[0]/freq[0]) / log10(2)
-        y_point_first1 = slopes[1] / (10**(slopes[0]*value/10))
+        value = log10(breakpoints[0] / freq[0]) / log10(2)
+        y_point_first1 = slopes[1] / (10 ** (slopes[0] * value / 10))
 
-        value = log10(breakpoints[2]/breakpoints[1]) / log10(2)
-        y_point_first2 = slopes[3] / (10**(slopes[2]*value/10))
+        value = log10(breakpoints[2] / breakpoints[1]) / log10(2)
+        y_point_first2 = slopes[3] / (10 ** (slopes[2] * value / 10))
 
-        value = log10(freq_last / breakpoints[1]) / log10(2)
-        y_point_last = slopes[1] * (10**(slopes[2]*value/10))
+        value = log10(freq_last / breakpoints[3]) / log10(2)
+        y_point_last = slopes[3] * (10 ** (slopes[4] * value / 10))
 
-        k_up1 = log10(slopes[1]/y_point_first1)/log10(breakpoints[0]/freq[0])
-        a_up1 = slopes[1] / (breakpoints[0]**k_up1)
+        k_up1 = log10(slopes[1] / y_point_first1) / log10(breakpoints[0] / freq[0])
+        a_up1 = slopes[1] / (breakpoints[0] ** k_up1)
 
-        k_up2 = log10(slopes[3]/y_point_first2)/log10(breakpoints[2]/breakpoints[1])
-        a_up2 = slopes[3] / (breakpoints[2]**k_up2)
+        k_up2 = log10(slopes[3] / y_point_first2) / log10(breakpoints[2] / breakpoints[1])
+        a_up2 = slopes[3] / (breakpoints[2] ** k_up2)
 
-        k_down = log10(y_point_last / slopes[1])/log10(freq_last/breakpoints[1])
-        a_down = y_point_last / (freq_last**k_down)
-
-
+        k_down = log10(y_point_last / slopes[1]) / log10(freq_last / breakpoints[1])
+        a_down = y_point_last / (freq_last ** k_down)
 
         conditions = [freq < breakpoints[0],
                       (freq >= breakpoints[0]) & (freq < breakpoints[1]),
@@ -90,11 +88,11 @@ def build_continuous(breakpoints, slopes, freq):
                       (freq >= breakpoints[2]) & (freq < breakpoints[3]),
                       freq >= breakpoints[3]]
 
-        functions = [lambda freq: a_up1 * freq**k_up1,
+        functions = [lambda freq: a_up1 * freq ** k_up1,
                      lambda freq: slopes[1],
-                     lambda freq: a_up2 * freq**k_up2,
+                     lambda freq: a_up2 * freq ** k_up2,
                      lambda freq: slopes[3],
-                     lambda freq: a_down * freq**k_down]
+                     lambda freq: a_down * freq ** k_down]
     else:
         raise IOError
     return piecewise(freq, conditions, functions)
