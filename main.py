@@ -39,7 +39,7 @@ def read_data_file(filename):
     return df
 
 
-def calc_stats(data_df, spec_dict):
+def calc_stats(data_df, spec_dict, loads_dict):
     # The y values.  A numpy array is used here,
     # but a python list could also be used.
     dx = data_df.index[1] - data_df.index[0]
@@ -53,149 +53,176 @@ def calc_stats(data_df, spec_dict):
 
     Grms_qual_total = []
     G_data_loads = []
+    G_qual_loads =[]
     G_data_numpeaks = []
 
     for i in range(10):
         Grms_qual_total.append(get_Grms(spec_dict['fig1'], dx))
         g_load, num_peaks = get_Gloads(data_df.ix[:, i].tolist(), spec_dict['fig1'])
+        G_qual_loads.append(loads_dict['1'])
         G_data_loads.append(g_load)
         G_data_numpeaks.append(num_peaks)
 
     for i in range(10, 15):
         Grms_qual_total.append(get_Grms(spec_dict['fig2'], dx))
         g_load, num_peaks = get_Gloads(data_df.ix[:, i].tolist(), spec_dict['fig2'])
+        G_qual_loads.append(loads_dict['2'])
         G_data_loads.append(g_load)
         G_data_numpeaks.append(num_peaks)
+
     for i in range(15, 21):
         Grms_qual_total.append(get_Grms(spec_dict['fig3'], dx))
         g_load, num_peaks = get_Gloads(data_df.ix[:, i].tolist(), spec_dict['fig3'])
+        G_qual_loads.append(loads_dict['3'])
         G_data_loads.append(g_load)
         G_data_numpeaks.append(num_peaks)
 
     Grms_qual_total.append(get_Grms(spec_dict['fig4'], dx))  # col 21
     g_load, num_peaks = get_Gloads(data_df.ix[:, 21].tolist(), spec_dict['fig4'])
+    G_qual_loads.append(loads_dict['4'])
     G_data_loads.append(g_load)
     G_data_numpeaks.append(num_peaks)
 
     Grms_qual_total.append(get_Grms(spec_dict['fig5'], dx))
     g_load, num_peaks = get_Gloads(data_df.ix[:, 22].tolist(), spec_dict['fig5'])
+    G_qual_loads.append(loads_dict['5'])
     G_data_loads.append(g_load)
     G_data_numpeaks.append(num_peaks)
 
     Grms_qual_total.append(get_Grms(spec_dict['fig6'], dx))
     g_load, num_peaks = get_Gloads(data_df.ix[:, 23].tolist(), spec_dict['fig6'])
+    G_qual_loads.append(loads_dict['6'])
     G_data_loads.append(g_load)
     G_data_numpeaks.append(num_peaks)
 
     Grms_qual_total.append(get_Grms(spec_dict['fig7_IP'], dx))  # col 24
     g_load, num_peaks = get_Gloads(data_df.ix[:, 24].tolist(), spec_dict['fig7_IP'])
+    G_qual_loads.append(loads_dict['7'])
     G_data_loads.append(g_load)
     G_data_numpeaks.append(num_peaks)
 
     Grms_qual_total.append(get_Grms(spec_dict['fig7_OP'], dx))
     g_load, num_peaks = get_Gloads(data_df.ix[:, 25].tolist(), spec_dict['fig7_OP'])
+    G_qual_loads.append(loads_dict['7'])
     G_data_loads.append(g_load)
     G_data_numpeaks.append(num_peaks)
 
     Grms_qual_total.append(get_Grms(spec_dict['fig7_IP'], dx))
     g_load, num_peaks = get_Gloads(data_df.ix[:, 26].tolist(), spec_dict['fig7_IP'])
+    G_qual_loads.append(loads_dict['7'])
     G_data_loads.append(g_load)
     G_data_numpeaks.append(num_peaks)
 
     Grms_qual_total.append(get_Grms(spec_dict['fig7_OP'], dx))
     g_load, num_peaks = get_Gloads(data_df.ix[:, 27].tolist(), spec_dict['fig7_OP'])
+    G_qual_loads.append(loads_dict['7'])
     G_data_loads.append(g_load)
     G_data_numpeaks.append(num_peaks)
 
     for i in range(28, 31):
         Grms_qual_total.append(get_Grms(spec_dict['fig7_IP'], dx))
         g_load, num_peaks = get_Gloads(data_df.ix[:, i].tolist(), spec_dict['fig7_IP'])
+        G_qual_loads.append(loads_dict['7'])
         G_data_loads.append(g_load)
         G_data_numpeaks.append(num_peaks)
 
     Grms_qual_total.append(get_Grms(spec_dict['fig7_OP'], dx))
     g_load, num_peaks = get_Gloads(data_df.ix[:, 31].tolist(), spec_dict['fig7_OP'])
+    G_qual_loads.append(loads_dict['7'])
     G_data_loads.append(g_load)
     G_data_numpeaks.append(num_peaks)
 
     Grms_qual_total.append(get_Grms(spec_dict['fig8'], dx))
     g_load, num_peaks = get_Gloads(data_df.ix[:, 32].tolist(), spec_dict['fig8'])
+    G_qual_loads.append(loads_dict['8'])
     G_data_loads.append(g_load)
     G_data_numpeaks.append(num_peaks)
 
     Grms_qual_total.append(get_Grms(spec_dict['fig9_OP'], dx))
     g_load, num_peaks = get_Gloads(data_df.ix[:, 33].tolist(), spec_dict['fig9_OP'])
+    G_qual_loads.append(loads_dict['9'])
     G_data_loads.append(g_load)
     G_data_numpeaks.append(num_peaks)
 
     Grms_qual_total.append(get_Grms(spec_dict['fig9_IP'], dx))
     g_load, num_peaks = get_Gloads(data_df.ix[:, 34].tolist(), spec_dict['fig9_IP'])
+    G_qual_loads.append(loads_dict['9'])
     G_data_loads.append(g_load)
     G_data_numpeaks.append(num_peaks)
 
     Grms_qual_total.append(get_Grms(spec_dict['fig9_OP'], dx))
     g_load, num_peaks = get_Gloads(data_df.ix[:, 35].tolist(), spec_dict['fig9_OP'])
+    G_qual_loads.append(loads_dict['9'])
     G_data_loads.append(g_load)
     G_data_numpeaks.append(num_peaks)
 
     Grms_qual_total.append(get_Grms(spec_dict['fig9_IP'], dx))
     g_load, num_peaks = get_Gloads(data_df.ix[:, 36].tolist(), spec_dict['fig9_IP'])
+    G_qual_loads.append(loads_dict['9'])
     G_data_loads.append(g_load)
     G_data_numpeaks.append(num_peaks)
 
     for i in range(37, 40):
         Grms_qual_total.append(get_Grms(spec_dict['fig10'], dx))
         g_load, num_peaks = get_Gloads(data_df.ix[:, i].tolist(), spec_dict['fig10'])
+        G_qual_loads.append(loads_dict['10'])
         G_data_loads.append(g_load)
         G_data_numpeaks.append(num_peaks)
 
     for i in range(40, 43):
         Grms_qual_total.append(get_Grms(spec_dict['fig11_OP'], dx))
         g_load, num_peaks = get_Gloads(data_df.ix[:, i].tolist(), spec_dict['fig11_OP'])
+        G_qual_loads.append(loads_dict['11'])
         G_data_loads.append(g_load)
         G_data_numpeaks.append(num_peaks)
 
     Grms_qual_total.append(get_Grms(spec_dict['fig11_IP'], dx))
     g_load, num_peaks = get_Gloads(data_df.ix[:, 43].tolist(), spec_dict['fig11_IP'])
+    G_qual_loads.append(loads_dict['11'])
     G_data_loads.append(g_load)
     G_data_numpeaks.append(num_peaks)
 
     Grms_qual_total.append(get_Grms(spec_dict['fig11_OP'], dx))  # col 44
     g_load, num_peaks = get_Gloads(data_df.ix[:, 44].tolist(), spec_dict['fig11_OP'])
+    G_qual_loads.append(loads_dict['11'])
     G_data_loads.append(g_load)
     G_data_numpeaks.append(num_peaks)
 
     Grms_qual_total.append(get_Grms(spec_dict['fig11_IP'], dx))
     g_load, num_peaks = get_Gloads(data_df.ix[:, 45].tolist(), spec_dict['fig11_IP'])
+    G_qual_loads.append(loads_dict['11'])
     G_data_loads.append(g_load)
     G_data_numpeaks.append(num_peaks)
 
     Grms_qual_total.append(get_Grms(spec_dict['fig11_OP'], dx))  # col 46
     g_load, num_peaks = get_Gloads(data_df.ix[:, 46].tolist(), spec_dict['fig11_OP'])
+    G_qual_loads.append(loads_dict['11'])
     G_data_loads.append(g_load)
     G_data_numpeaks.append(num_peaks)
 
     Grms_qual_total.append(get_Grms(spec_dict['fig11_IP'], dx))
     g_load, num_peaks = get_Gloads(data_df.ix[:, 47].tolist(), spec_dict['fig11_IP'])
+    G_qual_loads.append(loads_dict['11'])
     G_data_loads.append(g_load)
     G_data_numpeaks.append(num_peaks)
 
     Grms_qual_total.append(get_Grms(spec_dict['fig11_OP'], dx))
     g_load, num_peaks = get_Gloads(data_df.ix[:, 48].tolist(), spec_dict['fig11_OP'])
+    G_qual_loads.append(loads_dict['11'])
     G_data_loads.append(g_load)
     G_data_numpeaks.append(num_peaks)
 
     Grms_qual_total.append(get_Grms(spec_dict['fig12_IP'], dx))
     g_load, num_peaks = get_Gloads(data_df.ix[:, 49].tolist(), spec_dict['fig12_IP'])
+    G_qual_loads.append(loads_dict['12'])
     G_data_loads.append(g_load)
     G_data_numpeaks.append(num_peaks)
 
     Grms_qual_total.append(get_Grms(spec_dict['fig12_OP'], dx))
     g_load, num_peaks = get_Gloads(data_df.ix[:, 50].tolist(), spec_dict['fig12_OP'])
+    G_qual_loads.append(loads_dict['12'])
     G_data_loads.append(g_load)
     G_data_numpeaks.append(num_peaks)
-
-    G_qual_loads = []
 
     return Grms_data_total, Grms_qual_total, G_data_loads, G_qual_loads, G_data_numpeaks
 
@@ -226,16 +253,20 @@ def get_Gloads(data_list, spec_list):
     return fsum(pieces_grms), num_peaks
 
 
-def write_output_file(fname, Grms_data_total, Grms_qual_total, G_data_loads, G_qual_loads, num_peaks):
+def write_output_file(fname, accel_names, Grms_data_total, Grms_qual_total, G_data_loads, G_qual_loads, num_peaks):
     grms_total_diff = [a - b for a, b in zip(Grms_qual_total, Grms_data_total)]
+    loads_total_diff = [a - b for a, b in zip(G_qual_loads, G_data_loads)]
 
     with open(fname, 'w') as f_output:
-        f_output.write('Grms_curve\tGrms_qual\tGrms_diff\tNum_Peaks\tG_data_loads\n')
+        f_output.write('Accels\tGrms_data\tGrms_qual\tGrms_dif\tPks\tLoads_d\tLoads_q\tLoads_dif\n')
 
         for i in range(len(Grms_data_total)):
-            f_output.write(str(round(Grms_data_total[i], 2)) + '\t' + str(round(Grms_qual_total[i], 2)) +
+            f_output.write(str(accel_names[i]) + '\t' +
+                           str(round(Grms_data_total[i], 2)) + '\t' + str(round(Grms_qual_total[i], 2)) +
                            '\t' + str(round(grms_total_diff[i], 2)) + '\t' +
-                           str(round(num_peaks[i], 2)) + '\t' + str(round(G_data_loads[i], 2)) + '\n')
+                           str(round(num_peaks[i], 2)) + '\t' +
+                           str(round(G_data_loads[i], 2)) + '\t' + str(round(G_qual_loads[i], 2)) + '\t' +
+                           str(round(loads_total_diff[i], 2)) + '\n')
 
 
 def main():
@@ -249,9 +280,10 @@ def main():
 
     # get dictionary of design loads of {figure# : design_load}
     loads_dict = qualification.get_design_loads(fname_design_loads)
+    accel_names = data_df.columns.tolist()
 
-    Grms_data_total, Grms_qual_total, G_data_loads, G_qual_loads,num_peaks = calc_stats(data_df, spec_dict)
-    write_output_file(fname_output, Grms_data_total, Grms_qual_total, G_data_loads, G_qual_loads, num_peaks)
+    Grms_data_total, Grms_qual_total, G_data_loads, G_qual_loads, num_peaks = calc_stats(data_df, spec_dict,loads_dict)
+    write_output_file(fname_output, accel_names, Grms_data_total, Grms_qual_total, G_data_loads, G_qual_loads, num_peaks)
     # plotting.make_plots(data_df, spec_dict)
 
 
