@@ -275,7 +275,12 @@ def main():
     fname_data = 'Acoustics_Overtest_Data.txt'
     fname_design_loads = 'design_loads.txt'
     fname_randomV_specs = 'qual_specs.txt'
+    fname_presig = 'presig.txt'
+    fname_postsig = 'postsig.txt'
     data_df = read_data_file(fname_data)  # create data object that will keep all variables from file, raw and processed
+    presig_df = read_data_file(fname_presig)
+    postsig_df = read_data_file(fname_postsig)
+
     spec_dict = qualification.get_qual(fname_randomV_specs)
 
     # get dictionary of design loads of {figure# : design_load}
@@ -285,6 +290,7 @@ def main():
     Grms_data_total, Grms_qual_total, G_data_loads, G_qual_loads, num_peaks = calc_stats(data_df, spec_dict,loads_dict)
     write_output_file(fname_output, accel_names, Grms_data_total, Grms_qual_total, G_data_loads, G_qual_loads, num_peaks)
     # plotting.make_plots(data_df, spec_dict)
+    # plotting.sign_overlay(presig_df,postsig_df)
 
 
 if __name__ == '__main__':

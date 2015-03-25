@@ -21,19 +21,6 @@ def get_qual_specs(fname):
     df = read_csv(fname, sep='\t', lineterminator='\n', header=0)
     return df
 
-
-# def get_qual_helper(item):
-# """
-# Function reads qual txt file and pulls out a pandas df of specs with fig# as index
-# """
-#
-#
-# # switch case for item
-#     breakpoints = [50, 600]
-#     slopes = [6.0, 0.08, -4.5]
-#     return breakpoints, slopes
-
-
 def build_continuous(breakpoints, slopes, freq):
     """
     Function to take a vector of breakpoints, and one of slopes and to build continuos spec lines
@@ -79,7 +66,7 @@ def build_continuous(breakpoints, slopes, freq):
         k_up2 = log10(slopes[3] / y_point_first2) / log10(breakpoints[2] / breakpoints[1])
         a_up2 = slopes[3] / (breakpoints[2] ** k_up2)
 
-        k_down = log10(y_point_last / slopes[1]) / log10(freq_last / breakpoints[1])
+        k_down = log10(y_point_last / slopes[3]) / log10(freq_last / breakpoints[3])
         a_down = y_point_last / (freq_last ** k_down)
 
         conditions = [freq < breakpoints[0],

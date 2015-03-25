@@ -237,3 +237,34 @@ def make_plots(data_df, spec_dict):
     plt.savefig('fig12.pdf', bbox_inches='tight')
 
     # plt.show()
+
+def make_subplots(presig_df, postsig_df,first_index, num_plots, fig_name):
+
+    subplot_num = int(num_plots / 3)
+
+    plt.figure()
+    plt.suptitle('NBN co 1-A : Signature Overlays', fontsize=20)
+    # make 6 or 9 subplots
+    for i in range(1,num_plots+1):
+        ax = plt.subplot('3'+str(subplot_num)+ str(i))
+
+        ax.loglog(presig_df.index, presig_df[[first_index]], label='PRE'+str(presig_df.columns[first_index]), color='magenta')
+        ax.loglog(postsig_df.index, postsig_df[[first_index]], label='POST'+str(postsig_df.columns[first_index]), color='green')
+        first_index +=1
+
+        plt.xlim([10, 2 ** 12])
+        plt.xlabel('Hz', fontsize=6)
+        plt.ylabel('ASD($g^2/Hz$)', fontsize=5)
+        plt.grid()
+        plt.legend(loc=0, prop={'size': 6})
+
+    plt.savefig(fig_name, bbox_inches='tight')
+
+def sign_overlay(presig_df,postsig_df):
+
+    make_subplots(presig_df, postsig_df,0, 9, 'sig_overlay_1.pdf')
+    make_subplots(presig_df, postsig_df,9, 9, 'sig_overlay_2.pdf')
+    make_subplots(presig_df, postsig_df,18, 9, 'sig_overlay_3.pdf')
+    make_subplots(presig_df, postsig_df,27, 9, 'sig_overlay_4.pdf')
+    make_subplots(presig_df, postsig_df,36, 9, 'sig_overlay_5.pdf')
+    make_subplots(presig_df, postsig_df,45, 6, 'sig_overlay_6.pdf')
