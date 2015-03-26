@@ -21,6 +21,7 @@ def get_qual_specs(fname):
     df = read_csv(fname, sep='\t', lineterminator='\n', header=0)
     return df
 
+
 def build_continuous(breakpoints, slopes, freq):
     """
     Function to take a vector of breakpoints, and one of slopes and to build continuos spec lines

@@ -53,7 +53,7 @@ def calc_stats(data_df, spec_dict, loads_dict):
 
     Grms_qual_total = []
     G_data_loads = []
-    G_qual_loads =[]
+    G_qual_loads = []
     G_data_numpeaks = []
 
     for i in range(10):
@@ -287,10 +287,11 @@ def main():
     loads_dict = qualification.get_design_loads(fname_design_loads)
     accel_names = data_df.columns.tolist()
 
-    Grms_data_total, Grms_qual_total, G_data_loads, G_qual_loads, num_peaks = calc_stats(data_df, spec_dict,loads_dict)
-    write_output_file(fname_output, accel_names, Grms_data_total, Grms_qual_total, G_data_loads, G_qual_loads, num_peaks)
+    Grms_data_total, Grms_qual_total, G_data_loads, G_qual_loads, num_peaks = calc_stats(data_df, spec_dict, loads_dict)
+    write_output_file(fname_output, accel_names, Grms_data_total, Grms_qual_total, G_data_loads, G_qual_loads,
+                      num_peaks)
     # plotting.make_plots(data_df, spec_dict)
-    # plotting.sign_overlay(presig_df,postsig_df)
+    plotting.sign_overlay(presig_df, postsig_df)
 
 
 if __name__ == '__main__':
